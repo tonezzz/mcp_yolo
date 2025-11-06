@@ -10,6 +10,9 @@ from typing import List, Dict, Any, Optional, Union
 import numpy as np
 from PIL import Image
 
+##################################################
+from fastapi import FastAPI
+##################################################
 from mcp.server.fastmcp import FastMCP
 from ultralytics import YOLO
 
@@ -100,6 +103,10 @@ def load_image(image_source, is_path=False):
             return Image.open(BytesIO(image_bytes))
     except Exception as e:
         raise ValueError(f"Failed to load image: {str(e)}")
+
+##################################################
+app = FastAPI(title="YOLO MCP Service")
+##################################################
 
 # Create MCP server
 mcp = FastMCP("YOLO_Service")
@@ -1321,6 +1328,12 @@ def test_connection() -> Dict[str, Any]:
         ]
     }
 
+##################################################
+mcp_app = mcp.streamable_http_app()
+app.mount("/mcp", mcp_app)
+app.get("/hi") (lambda: "Hello from YOLO MCP server!")
+##################################################
+
 # Modify the main execution section
 if __name__ == "__main__":
     logger.info("Starting YOLO MCP service")
@@ -1330,3 +1343,4 @@ if __name__ == "__main__":
     
     # Initialize and run server
     mcp.run(transport='stdio')
+
