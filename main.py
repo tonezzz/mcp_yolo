@@ -1332,16 +1332,4 @@ def test_connection() -> Dict[str, Any]:
 mcp_app = mcp.streamable_http_app()
 app.mount("/mcp", mcp_app)
 app.get("/hi") (lambda: "Hello from YOLO MCP server!")
-app.run(transport="streamable-http", host="127.0.0.1", port=8000)
-##################################################
-
-# Modify the main execution section
-if __name__ == "__main__":
-    logger.info("Starting YOLO MCP service")
-    
-    # Start the camera watchdog thread
-    watchdog_thread = start_watchdog()
-    
-    # Initialize and run server
-    mcp.run(transport='stdio')
-
+#app.run(transport="streamable-http", host="127.0.0.1", port=8000)
