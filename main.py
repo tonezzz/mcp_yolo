@@ -1332,4 +1332,4 @@ def test_connection() -> Dict[str, Any]:
 mcp_app = mcp.streamable_http_app()
 app.mount("/mcp", mcp_app)
 app.get("/hi") (lambda: "Hello from YOLO MCP server!")
-#app.run(transport="streamable-http", host="127.0.0.1", port=8000)
+#app.run(transport="http", host="127.0.0.1", port=8000)
